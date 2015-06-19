@@ -14,10 +14,10 @@ require_once("dpdException.php");
 class dpdLocation {
   
   /**
-   * Full formated address (eg: Leuvensesteenweg 350, 3190 Boortmeerbeek, Belgium)
+   * Full formatted address (eg: Leuvensesteenweg 350, 3190 Boortmeerbeek, Belgium)
    * @var string 
    */
-  public $formated_address;
+  public $formatted_address;
   /**
    * House number (eg: 350)
    * @var string 
@@ -100,16 +100,17 @@ class dpdLocation {
   public $lat;
   
   /**
+	 * @todo verify input
    * @param (string|array) $data Takes a one string address (eg: "leuvensesteenweg 350, 3190 Boortmeerbeek") or an array of field to set the variables above.
    */
   function __construct($data = "") {
     // Save a single line address
     if(is_string($data)){
-      $this->formated_address = $data;
+      $this->formatted_address = $data;
     // Save separate fields
     } elseif (is_array($data)){
       foreach($data as $key => $value){
-        if(isset($this->$key)){
+        if(property_exists($this, $key)){
           $this->$key = $value;
         }
       }
@@ -132,14 +133,14 @@ class dpdLocation {
     if($this->google_place_id) {
       $url = "http://maps.googleapis.com/maps/api/geocode/json?place_id=" . $this->google_place_id;
     // Then an adres containing street, housenumber, postal code and city
-    } elseif($formated_address = $this->getFormatedAddress()) {
-      $query = urlencode($formated_address);
+    } elseif($formatted_address = $this->getFormattedAddress()) {
+      $query = urlencode($formatted_address);
       $url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $query;
     // To end we try to use geolocation.
     } elseif($this->lat && $this->lng) {
       $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $this->lat .  "," . $this->lng;
     } else {
-      throw new dpdException("Not enough data to start parsing.";
+      throw new dpdException("Not enough data to start parsing.");
     }
     
     // Make the request to the google API
@@ -173,7 +174,7 @@ class dpdLocation {
      * "INVALID_REQUEST" generally indicates that the query (address, components or latlng) is missing.
      * "UNKNOWN_ERROR" indicates that the request could not be processed due to a server error. The request may succeed if you try again.
      */
-    switch($result["status"]){
+    switch($result_array->status){
       case "ZERO_RESULTS":
         $error_message = "No results with given details.";
         break;
@@ -187,55 +188,54 @@ class dpdLocation {
         $error_message = "Invalid request, probably bad or missing data.";
         break;
       case "UNKNOWN_ERROR":
-        $error_message = "Something went wrong "
+        $error_message = "Something went wrong";
         break;
     }
-    if($error_message){
+    if(isset($error_message)){
       throw new dpdException($error_message);
     }
     
     // Check if we have more than 1 result.
-    if(count($result_array["results"]) > 1) {
+    if(count($result_array->results) > 1) {
     	throw new dpdException("More then one result, please try to specify your query.");
     }
     
     // Save the parsed address details
-    foreach($result_array["results"][0]["address_components"] as $result_data){
-      foreach($result_data["types"] as $type){
-        if(isset($this->$type) 
-          && ( empty($this->$type) || $destructive ) ) {
-          $this->$type = $result_data["long_name"];
+    foreach($result_array->results[0]->address_components as $result_data){
+      foreach($result_data->types as $type){
+        if( property_exists($this, $type) && ( empty($this->$type) || $destructive ) ) {
+          $this->$type = $result_data->long_name;
           if($type == "country") {
-            $this->country_A2 = $result_data["short_name"];
+            $this->country_A2 = $result_data->short_name;
           }
         }
       }
     }
     // Save the formatted address
     if( empty($this->formatted_address) || $destructive )  {
-      $this->formatted_address = $result_array["results"][0]["formatted_address"];
+      $this->formatted_address = $result_array->results[0]->formatted_address;
     }
     // Save the longitude
     if( empty($this->lng) || $destructive )  {
-      $this->lng = $result_array["results"][0]["geometry"]["location"]["lat"];
+      $this->lng = $result_array->results[0]->geometry->location->lat;
     }
     // Save the latitude
     if( empty($this->lat) || $destructive )  {
-      $this->lat = $result_array["results"][0]["geometry"]["location"]["lng"];
+      $this->lat = $result_array->results[0]->geometry->location->lng;
     }
     
     return true;
   }
   
   /**
-   * Return a formated addres, either the direct value or generate it from the separate fields. 
+   * Return a formatted addres, either the direct value or generate it from the separate fields. 
    * 
    * @return (string|boolean)
    */
-  public function getFormatedAddress() {
-    // If the formated address is already set we return it
-    if($this->formated_address != "") {
-    	return $this->formated_address;
+  public function getFormattedAddress() {
+    // If the formatted address is already set we return it
+    if(!empty($this->formatted_address)) {
+    	return $this->formatted_address;
     // If the separate fields are set, we concate them and return the result.
     } elseif ( $this->route != ""
     	&& $this->street_number != ""

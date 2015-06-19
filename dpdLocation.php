@@ -148,7 +148,7 @@ class dpdLocation {
       CURLOPT_RETURNTRANSFER => 1
       ,CURLOPT_CONNECTTIMEOUT => "2"
       ,CURLOPT_TIMEOUT => "2"
-			,CURLOPT_USERAGENT => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13"
+      ,CURLOPT_USERAGENT => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13"
       ,CURLOPT_URL => $url
     ));
     $result = curl_exec($curl);
@@ -158,10 +158,10 @@ class dpdLocation {
       $error_message = curl_strerror($errno);
       throw new dpdException("Could not connect to parser (" . $error_message . ")");
     }
-		// If everything went well we can close curl obj.
-		curl_close($curl);
-		
-		// Decode the result.
+    // If everything went well we can close curl obj.
+    curl_close($curl);
+    
+    // Decode the result.
     $result_array = json_decode($result);
     
     /**
@@ -196,7 +196,7 @@ class dpdLocation {
     
     // Check if we have more than 1 result.
     if(count($result_array["results"]) > 1) {
-		  throw new dpdException("More then one result, please try to specify your query.");
+    	throw new dpdException("More then one result, please try to specify your query.");
     }
     
     // Save the parsed address details

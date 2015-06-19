@@ -141,8 +141,8 @@ class dpdLocation {
     } else {
       throw new dpdException("Not enough data to start parsing.";
     }
-		
-		// Make the request to the google API
+    
+    // Make the request to the google API
     $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_RETURNTRANSFER => 1

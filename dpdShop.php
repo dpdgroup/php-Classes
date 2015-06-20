@@ -18,13 +18,13 @@ class dpdShop {
    * By adding up the values (eg $this->services = $this::pickup + $this::return)
    * we can use binary operator & to filter the list very easily
    */
-  const $pickup   = 0x01;
-  const $return   = 0x02;
-  const $cod      = 0x04;
-  const $ident    = 0x08;
-  const $swap     = 0x10;
-  const $offline  = 0x20;
-  const $online   = 0x40;
+  const pickup   = 0x01;
+  const retour   = 0x02; //Return can't be used, would do funny things in php.
+  const cod      = 0x04;
+  const ident    = 0x08;
+  const swap     = 0x10;
+  const offline  = 0x20;
+  const online   = 0x40;
   
   /**
    * Id used to identify this shop in the order

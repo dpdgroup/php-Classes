@@ -10,14 +10,13 @@
  */
 
 require_once("dpdException.php");
-require_once("dpdLocation.php");
 
 class dpdShop {
   
   /**
    * Possible services
    * By adding up the values (eg $this->services = $this::pickup + $this::return)
-   * we can use binary operator & to filter the list locally very easily
+   * we can use binary operator & to filter the list very easily
    */
   const $pickup   = 0x01;
   const $return   = 0x02;
@@ -27,15 +26,51 @@ class dpdShop {
   const $offline  = 0x20;
   const $online   = 0x40;
   
+  /**
+   * Id used to identify this shop in the order
+   * @val string $id
+   */
   public $id;
+  /**
+   * Defines if the shop is active (can be selected)
+   * @val boolean $active
+   */
+  public $active;
+  /**
+   * (Company) name of the shop.
+   * @val string $name
+   */
   public $name;
+  /**
+   * Location of the shop
+   * @val dpdLocation $location
+   */
   public $location;
+  /**
+   * Extra description/info about the shop
+   * @val string $info
+   */
+  public $info;
+  /**
+   * Bussiness hours of the shop
+   * @val dpdShopHours $bussiness_hours
+   */
   public $business_hours;
-  public $logo_active_url;
-  public $logo_inactive_url;
-  public $logo_shadow_url;
+  /**
+   * Logos used on the locator.
+   * @val dpdShopLogo $logo
+   */
+  public $logo;
+  /**
+   * An image of the shop
+   * @val string $image_url
+   */
   public $image_url;
   
+  /**
+   * A representation of all the (dpd) services this shop offers
+   * @val int $services
+   */
   private $services;
   
   public function __construct($data){
@@ -103,7 +138,22 @@ class dpdShop {
    * @return boolean
    */
   public function hasService($service) {
-    return ($this->services & $service) ? true : false;
+    $result = ($this->services & $service) ? true : false;
+    return $result;
+  }
+  /**
+   * Check if the shop provides all the listed services.
+   * (loop stops if one of the services isn't provided)
+   * @param int[] $services
+   * @return boolean
+   */
+  public function hasServices($services) {
+    foreach($services as $service){
+      if(!$this->hasService($service)){
+        return false;
+      }
+    }
+    return true;
   }
 
 }

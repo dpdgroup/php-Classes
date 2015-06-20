@@ -30,6 +30,11 @@ class dpdConfiguration {
    */
   public $type;
   /**
+   * The value if type is an option
+   * @var string $value
+   */
+  public $value;
+  /**
    * A validation function (anonymous function perfered)
    * @var function $validate
    */

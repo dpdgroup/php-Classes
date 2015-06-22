@@ -11,29 +11,43 @@
 
 require_once("dpdException.php");
 
-class dpdLabel {
-
-  const pdf = 1;
-  const zpl = 2;
-  const epl = 3;
-  const svg = 4;
-  const png = 5;
-  const jpg = 6;
+class dpdParcel {
   
   /**
-   * Human readable text.
-   * @var string $label
+	 * Weight in Kg
+   * @var float $weight
    */
-  public $number;
+  public $weight;
+	/**
+	 * length in cm
+   * @var float $length
+   */
+  public $length;
+	/**
+	 * width in cm
+   * @var float $width
+   */
+  public $width;
   /**
-   * A binary representation of the label
-   * @var string $binary
-	 */
-  public $binary;
+	 * height in cm
+   * @var float $height
+   */
+  public $height;
+	/**
+	 * value (for COD)
+   * @var float $value
+   */
+  public $height;
+	/**
+	 * valuta (eg: EUR)
+   * @var string $valuta
+   */
+  public $valuta;
+  
   
   /**
    * @param array $data
-   * @return dpdLabel
+   * @return dpdConfiguration
    */
   public function __construct($data){
     if (is_array($data)){ 
@@ -46,4 +60,5 @@ class dpdLabel {
       throw new dpdException("Can only take an array as input."); 
     }
   }
+
 }

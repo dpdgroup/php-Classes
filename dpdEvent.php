@@ -11,29 +11,33 @@
 
 require_once("dpdException.php");
 
-class dpdLabel {
+class dpdEvent {
 
-  const pdf = 1;
-  const zpl = 2;
-  const epl = 3;
-  const svg = 4;
-  const png = 5;
-  const jpg = 6;
-  
-  /**
-   * Human readable text.
-   * @var string $label
-   */
-  public $number;
-  /**
-   * A binary representation of the label
-   * @var string $binary
+	const error			= 0;
+	const sent 			= 1;
+	const transit		= 2;
+	const delivery	= 3;
+	const delivered	= 4;
+
+	/**
+	 * The time of the event
+	 * @var int $time
 	 */
-  public $binary;
+  public $time;
+	
+	/**
+	 * Status as defined above.
+	 */
+	public $status;
+	
+	/**
+	 * Human readable description.
+	 */
+	public $description;
   
   /**
    * @param array $data
-   * @return dpdLabel
+   * @return dpdEvent
    */
   public function __construct($data){
     if (is_array($data)){ 

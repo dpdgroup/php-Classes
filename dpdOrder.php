@@ -25,19 +25,19 @@ class dpdOrder {
    * @var dpdContact $receiver
    */
   public $receiver;
-	/**
-	 * @var dpdParcel[] $parcels
-	 */
-	public $parcels;
-	/**
-	 * @var dpdService $service
-	 */
-	public $service;
-	/**
-	 * @var dpdShop $shop
-	 */
-	public $shop;
-	
+  /**
+   * @var dpdParcel[] $parcels
+   */
+  public $parcels;
+  /**
+   * @var dpdService $service
+   */
+  public $service;
+  /**
+   * @var dpdShop $shop
+   */
+  public $shop;
+  
   
   /**
    * @param array $data

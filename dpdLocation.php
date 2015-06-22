@@ -100,7 +100,7 @@ class dpdLocation {
   public $lat;
   
   /**
-	 * @todo verify input
+   * @todo verify input
    * @param (string|array) $data Takes a one string address (eg: "leuvensesteenweg 350, 3190 Boortmeerbeek") or an array of field to set the variables above.
    */
   function __construct($data = "") {
@@ -197,7 +197,7 @@ class dpdLocation {
     
     // Check if we have more than 1 result.
     if(count($result_array->results) > 1) {
-    	throw new dpdException("More then one result, please try to specify your query.");
+      throw new dpdException("More then one result, please try to specify your query.");
     }
     
     // Save the parsed address details
@@ -235,14 +235,14 @@ class dpdLocation {
   public function getFormattedAddress() {
     // If the formatted address is already set we return it
     if(!empty($this->formatted_address)) {
-    	return $this->formatted_address;
+      return $this->formatted_address;
     // If the separate fields are set, we concate them and return the result.
     } elseif ( $this->route != ""
-    	&& $this->street_number != ""
-    	&& $this->postal_code != ""
-    	&& $this->locality != ""
+      && $this->street_number != ""
+      && $this->postal_code != ""
+      && $this->locality != ""
     ) {
-    	return $this->route  . " " . $this->street_number . ", " . $this->postal_code . " " . $this->locality;
+      return $this->route  . " " . $this->street_number . ", " . $this->postal_code . " " . $this->locality;
     // Else we don't have any other way of getting a full address, so we return false.
     } else {
       return false;

@@ -14,32 +14,32 @@ require_once("dpdException.php");
 class dpdParcel {
   
   /**
-	 * Weight in Kg
+   * Weight in Kg
    * @var float $weight
    */
   public $weight;
-	/**
-	 * length in cm
+  /**
+   * length in cm
    * @var float $length
    */
   public $length;
-	/**
-	 * width in cm
+  /**
+   * width in cm
    * @var float $width
    */
   public $width;
   /**
-	 * height in cm
+   * height in cm
    * @var float $height
    */
   public $height;
-	/**
-	 * value (for COD)
+  /**
+   * value (for COD)
    * @var float $value
    */
   public $height;
-	/**
-	 * valuta (eg: EUR)
+  /**
+   * valuta (eg: EUR)
    * @var string $valuta
    */
   public $valuta;

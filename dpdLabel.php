@@ -28,7 +28,7 @@ class dpdLabel {
   /**
    * A binary representation of the label
    * @var string $binary
-	 */
+   */
   public $binary;
   
   /**

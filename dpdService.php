@@ -14,9 +14,9 @@ require_once("dpdException.php");
 class dpdService {
 
   const classic     = 0;
-  const parcelshop  = 1
+  const parcelshop  = 1;
   const saturday    = 2;
-  const sunday      = 3
+  const sunday      = 3;
   const same_day    = 4;
   const express     = 5;
   

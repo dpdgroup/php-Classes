@@ -37,7 +37,7 @@ class dpdParcel {
    * value (for COD)
    * @var float $value
    */
-  public $height;
+  public $value;
   /**
    * valuta (eg: EUR)
    * @var string $valuta

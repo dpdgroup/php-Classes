@@ -43,7 +43,7 @@ class dpdOrder {
    * @param array $data
    * @return dpdConfiguration
    */
-  public function __construct($data){
+  public function __construct($data = array()){
     if (is_array($data)){ 
       foreach($data as $key => $value){ 
         if(property_exists($this, $key)){ 

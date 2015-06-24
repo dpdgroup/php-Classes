@@ -21,6 +21,11 @@ class dpdService {
   const express     = 5;
   
   /**
+   * Parent ID (eg: libraryUID)
+   * @var string $parentId
+   */
+  public $parentId;
+  /**
    * Human readable text.
    * @var string $label
    */

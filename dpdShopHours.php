@@ -39,7 +39,7 @@ class dpdShopHours {
    * @return stdClass[]
    */
   public function addBlock($day, $start, $end) {
-    $day_data = $this->data[$day];
+    $day_data = isset($this->data[$day]) ? $this->data[$day] : array();
     $pre_data = array();
     for($i = count($day_data) + 1; $i > 0; $i--) {
         if($i == 1 || $start < $day_data[0]->start) {

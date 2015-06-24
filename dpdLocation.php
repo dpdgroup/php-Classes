@@ -217,11 +217,11 @@ class dpdLocation {
     }
     // Save the longitude
     if( empty($this->lng) || $destructive )  {
-      $this->lng = $result_array->results[0]->geometry->location->lat;
+      $this->lng = $result_array->results[0]->geometry->location->lng;
     }
     // Save the latitude
     if( empty($this->lat) || $destructive )  {
-      $this->lat = $result_array->results[0]->geometry->location->lng;
+      $this->lat = $result_array->results[0]->geometry->location->lat;
     }
     
     return true;

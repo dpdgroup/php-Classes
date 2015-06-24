@@ -35,7 +35,7 @@ class dpdLabel {
    * @param array $data
    * @return dpdLabel
    */
-  public function __construct($data){
+  public function __construct(array $data = array()){
     if (is_array($data)){ 
       foreach($data as $key => $value){ 
         if(property_exists($this, $key)){ 

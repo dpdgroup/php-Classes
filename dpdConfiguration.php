@@ -12,6 +12,7 @@
 require_once("dpdException.php");
 
 class dpdConfiguration {
+  // @todo Add fieldset support(?)
   
   /**
    * Human readable text.
@@ -34,6 +35,11 @@ class dpdConfiguration {
    * @var string $value
    */
   public $value;
+  /**
+   * Children
+   * @var array $children
+   */
+  public $children;
   /**
    * A validation function (anonymous function perfered)
    * @var function $validate
